@@ -7,30 +7,25 @@
     <style>
         .overlay {
         display: none;
-        /* Initially hidden */
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         background: rgba(0, 0, 0, 0.5) !important;
-        /* Semi-transparent background */
         z-index: 1000 !important;
-        /* Ensure it's on top */
         }
 
         .spinner {
         display: none;
-        /* Initially hidden */
         position: absolute !important;
         top: 50% !important;
         left: 50% !important;
         width: 50px !important;
         height: 50px !important;
         margin-top: -25px !important;
-        /* Half the height */
         margin-left: -25px !important;
-        /* Half the width */
+
         border: 8px solid rgba(255, 255, 255, 0.3) !important;
         border-top: 8px solid #fff !important;
         border-radius: 50% !important;
@@ -46,7 +41,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.4); /* Darker background */
+        background-color: rgba(0, 0, 0, 0.4);
         }
 
         /* Modal Content Box */
@@ -54,10 +49,10 @@
         background-color: #fff;
         margin: 10% auto;
         padding: 20px;
-        border-radius: 10px; /* Rounded corners */
+        border-radius: 10px;
         border: 1px solid #888;
-        width: 40%; /* Adjust width to make it narrower */
-        max-width: 400px; /* Max width for responsiveness */
+        width: 40%;
+        max-width: 400px;
         text-align: center;
         }
 
@@ -66,31 +61,31 @@
         color: #aaa;
         float: right;
         font-size: 20px;
-        margin-right: 10px; /* Add some margin between X and edge */
+        margin-right: 10px;
         cursor: pointer;
         }
 
         /* Text in Modal */
         .modal p {
-        margin-top: 20px !important; /* Add margin to the text */
-        margin-bottom: 20px !important; /* Add margin to the text */
-        font-size: 16px; /* Font size for better readability */
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        font-size: 16px;
         }
 
         /* OK Button */
         #closeModalButton {
         margin-top: 10px !important;
-        background-color: #f44336; /* Red color */
+        background-color: #f44336;
         color: white;
-        padding: 6px 15px !important; /* Smaller padding for a smaller button */
+        padding: 6px 15px !important;
         border: none;
-        border-radius: 12px !important; /* Rounded corners */
+        border-radius: 12px !important;
         cursor: pointer;
         font-size: 12px !important;
         }
 
         #closeModalButton:hover {
-        background-color: #d32f2f; /* Darker red on hover */
+        background-color: #d32f2f;
         }
 
         .app-checkout-summary-site-title {
@@ -105,7 +100,7 @@
 
         .checkout-summary-item,
         .checkout-summary-item * {
-            pointer-events: none !important; /* Disable all hover effects */
+            pointer-events: none !important;
         }
 
 
@@ -2800,8 +2795,8 @@
                     const invoiceUUID = details.apiResponse2.invoiceUUID;
                     setLocalStorageWithExpiry('invoiceUUID', invoiceUUID);
                     setLocalStorageWithExpiry('parkID', parkId);
-                    let baseurl = "https://insiderperks.com/wp-content/endpoints/campspot";
-                    window.location.href = baseurl + '/vapi-display-summary.php';
+                    let baseurl = "https://booking-checkoutsummary.onrender.com";
+                    window.location.href = baseurl + '/booking-summary.php';
                 }
             } catch (error) {
                 console.error("Error submitting payment:", error);
