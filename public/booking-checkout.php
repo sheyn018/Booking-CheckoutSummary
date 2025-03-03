@@ -2220,10 +2220,21 @@
             }
 
             function formatDateRange(startDate, endDate) {
+                // Increment the start date by 1 day
+                startDate = incrementDate(startDate);
+                endDate = incrementDate(endDate);
                 const options = { weekday: 'short', month: 'short', day: 'numeric' };
                 const start = startDate.toLocaleDateString('en-US', options);
                 const end = endDate.toLocaleDateString('en-US', options);
-                return `${start} - ${end}`;
+                return ${start} - ${end};
+            }
+
+            function incrementDate(date) {
+                // Create a new Date object based on the input date
+                let newDate = new Date(date);
+                // Increment the date by 1
+                newDate.setDate(newDate.getDate() + 1);
+                return newDate;
             }
 
             function formatGuests(adults, children, pets) {
