@@ -2226,7 +2226,7 @@
                 const options = { weekday: 'short', month: 'short', day: 'numeric' };
                 const start = startDate.toLocaleDateString('en-US', options);
                 const end = endDate.toLocaleDateString('en-US', options);
-                return ${start} - ${end};
+                return `${start} - ${end}`;
             }
 
             function incrementDate(date) {
