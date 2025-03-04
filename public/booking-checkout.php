@@ -1268,33 +1268,35 @@
 </head>
 <body>
 <?php
-        // Check if a cart ID is provided via GET or POST request. If not, use a default value.
-        $parkId = isset($_GET['parkId']) ? $_GET['parkId'] : 'defaultParkId123';
-        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
-        $amount = isset($_GET['amount']) ? $_GET['amount'] : '';
-        $minPayment = isset($_GET['minPayment']) ? $_GET['minPayment'] : '';
-        $name = isset($_GET['name']) ? $_GET['name'] : 'John Doe';
-        $state = isset($_GET['state']) ? $_GET['state'] : 'CA';
-        $type = isset($_GET['type']) ? $_GET['type'] : 'SHIPPING';
-        $country = isset($_GET['country']) ? $_GET['country'] : 'US';
-        $city = isset($_GET['city']) ? $_GET['city'] : 'San Francisco';
-        $address1 = isset($_GET['address1']) ? $_GET['address1'] : '123 Main St';
-        $postal = isset($_GET['postal']) ? $_GET['postal'] : '94105';
-        $email = isset($_GET['email']) ? $_GET['email'] : 'test@gmail.com';
-        $phone = isset($_GET['phone']) ? $_GET['phone'] : '123-456-7890';
-        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
-
-        // // Output the values for debugging
-        // echo "<h3>Received Values</h3>";
-        // echo "Park ID: " . $parkId . "<br>";
-        // echo "Cart ID: " . $cartId . "<br>";
-        // echo "Amount: $" . $amount . "<br>";
-        // echo "Name: " . $name . "<br>";
-        // echo "State: " . $state . "<br>";
-        // echo "Type: " . $type . "<br>";
-        // echo "Country: " . $country . "<br>";
-        // echo "City: " . $city . "<br>";
-        // echo "Address: " . $fullAddress . "<br>";
+    function decryptData($token)
+    {
+        $decoded = base64_decode($token); // Decode Base64
+        return json_decode($decoded, true); // Convert JSON string back to an array
+    }
+    
+    // Get parameters from URL
+    $parkId = $_GET['parkId'] ?? 'defaultParkId';
+    $cartId = $_GET['cartId'] ?? 'defaultCartId';
+    $token = $_GET['token'] ?? null;
+    
+    // Decode token and retrieve data
+    $data = $token ? decryptData($token) : [];
+    
+    // Extract parameters with default values
+    $amount = $data['amount'] ?? '';
+    $minPayment = $data['minPayment'] ?? '';
+    $name = $data['name'] ?? 'John Doe';
+    $state = $data['state'] ?? 'CA';
+    $type = $data['type'] ?? 'SHIPPING';
+    $country = $data['country'] ?? 'US';
+    $city = $data['city'] ?? 'San Francisco';
+    $address1 = $data['address1'] ?? '123 Main St';
+    $postal = $data['postal'] ?? '94105';
+    $email = $data['email'] ?? 'test@gmail.com';
+    $phone = $data['phone'] ?? '123-456-7890';
+    
+    $fullAddress = "$address1, $city, $state $postal, $country";
+    
     ?>
     <div class="a">
         <div class="checkout">
