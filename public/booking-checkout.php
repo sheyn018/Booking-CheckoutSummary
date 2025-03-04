@@ -1981,12 +1981,7 @@
 
         parkId = getParkIdFromUrl();
 
-        function getEmailFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('email'); // Adjust 'email' to match the query parameter in your URL
-        }
-
-        email = getEmailFromUrl();
+        email = email;
         console.log('cartId:', cartId, 'parkId:', parkId, 'email:', email);
 
         $(document).ready(function ($) {
