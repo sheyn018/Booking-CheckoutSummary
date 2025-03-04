@@ -1,67 +1,3 @@
-<?php
-// Start the session
-session_start();
-
-// Set test values
-$_SESSION['test_time'] = date('Y-m-d H:i:s');
-$_SESSION['test_value'] = 'Hello from session debug script';
-
-// Process form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Store form data in session
-    $cartId = isset($_POST['cartId']) ? $_POST['cartId'] : 'defaultCartId123';
-    
-    $_SESSION['cart_data'][$cartId] = [
-        'parkId' => $_POST['parkId'] ?? 'defaultParkId123',
-        'amount' => $_POST['amount'] ?? '',
-        'minPayment' => $_POST['minPayment'] ?? '',
-        'name' => $_POST['name'] ?? 'John Doe',
-        'state' => $_POST['state'] ?? 'CA',
-        'type' => $_POST['type'] ?? 'SHIPPING',
-        'country' => $_POST['country'] ?? 'US',
-        'city' => $_POST['city'] ?? 'San Francisco',
-        'address1' => $_POST['address1'] ?? '123 Main St',
-        'postal' => $_POST['postal'] ?? '94105',
-        'email' => $_POST['email'] ?? 'test@gmail.com',
-        'phone' => $_POST['phone'] ?? '123-456-7890'
-    ];
-    
-    // After storing, redirect to the same page with only the cart ID
-    header("Location: booking-checkout.php?cartId=$cartId");
-    exit();
-}
-
-// Get the cart ID from the URL
-$cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
-
-// Try to load data from session if available
-$data = isset($_SESSION['cart_data'][$cartId]) ? $_SESSION['cart_data'][$cartId] : [];
-
-// Set default values or use session data if available
-$parkId = $data['parkId'] ?? 'defaultParkId123';
-$amount = $data['amount'] ?? '';
-$minPayment = $data['minPayment'] ?? '';
-$name = $data['name'] ?? 'John Doe';
-$state = $data['state'] ?? 'CA';
-$type = $data['type'] ?? 'SHIPPING';
-$country = $data['country'] ?? 'US';
-$city = $data['city'] ?? 'San Francisco';
-$address1 = $data['address1'] ?? '123 Main St';
-$postal = $data['postal'] ?? '94105';
-$email = $data['email'] ?? 'test@gmail.com';
-$phone = $data['phone'] ?? '123-456-7890';
-
-// Continue with your existing debug output
-echo "<h1>Session Debug Information</h1>";
-echo "<pre>";
-echo "Session ID: " . session_id() . "\n\n";
-echo "Session name: " . session_name() . "\n\n";
-echo "Session status: " . session_status() . "\n\n";
-echo "Session save path: " . session_save_path() . "\n\n";
-echo "Current session data: \n";
-print_r($_SESSION);
-echo "</pre>";
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1331,6 +1267,35 @@ echo "</pre>";
     </style>
 </head>
 <body>
+<?php
+        // Check if a cart ID is provided via GET or POST request. If not, use a default value.
+        $parkId = isset($_GET['parkId']) ? $_GET['parkId'] : 'defaultParkId123';
+        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
+        $amount = isset($_GET['amount']) ? $_GET['amount'] : '';
+        $minPayment = isset($_GET['minPayment']) ? $_GET['minPayment'] : '';
+        $name = isset($_GET['name']) ? $_GET['name'] : 'John Doe';
+        $state = isset($_GET['state']) ? $_GET['state'] : 'CA';
+        $type = isset($_GET['type']) ? $_GET['type'] : 'SHIPPING';
+        $country = isset($_GET['country']) ? $_GET['country'] : 'US';
+        $city = isset($_GET['city']) ? $_GET['city'] : 'San Francisco';
+        $address1 = isset($_GET['address1']) ? $_GET['address1'] : '123 Main St';
+        $postal = isset($_GET['postal']) ? $_GET['postal'] : '94105';
+        $email = isset($_GET['email']) ? $_GET['email'] : 'test@gmail.com';
+        $phone = isset($_GET['phone']) ? $_GET['phone'] : '123-456-7890';
+        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
+
+        // // Output the values for debugging
+        // echo "<h3>Received Values</h3>";
+        // echo "Park ID: " . $parkId . "<br>";
+        // echo "Cart ID: " . $cartId . "<br>";
+        // echo "Amount: $" . $amount . "<br>";
+        // echo "Name: " . $name . "<br>";
+        // echo "State: " . $state . "<br>";
+        // echo "Type: " . $type . "<br>";
+        // echo "Country: " . $country . "<br>";
+        // echo "City: " . $city . "<br>";
+        // echo "Address: " . $fullAddress . "<br>";
+    ?>
     <div class="a">
         <div class="checkout">
             <section id="app-checkout-heading-title" class="checkout-heading">
@@ -2852,32 +2817,5 @@ echo "</pre>";
             }
         };
     </script>
-    <div style="margin-top: 50px; padding: 20px; border: 1px solid #ccc;">
-    <h2>Test Session Storage</h2>
-    <form action="booking-checkout.php" method="post">
-        <input type="hidden" name="cartId" value="test-cart-123">
-        <div style="margin-bottom: 10px;">
-            <label>Park ID: <input type="text" name="parkId" value="test-park-456"></label>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <label>Amount: <input type="text" name="amount" value="100.00"></label>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <label>Min Payment: <input type="text" name="minPayment" value="50.00"></label>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <label>Name: <input type="text" name="name" value="Test User"></label>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <label>Email: <input type="email" name="email" value="test@example.com"></label>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <label>Phone: <input type="text" name="phone" value="123-456-7890"></label>
-        </div>
-        <div>
-            <button type="submit">Submit Test Data</button>
-        </div>
-    </form>
-</div>
 </body>
 </html>
