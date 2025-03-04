@@ -2,6 +2,11 @@
 // Start the session before any output
 session_start();
 
+// For debugging - display the current session data
+echo '<pre>SESSION DATA: ';
+var_dump($_SESSION);
+echo '</pre>';
+
 // Get the cart ID from the URL - this is the only parameter we want in the URL
 $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
 
