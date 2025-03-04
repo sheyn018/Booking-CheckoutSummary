@@ -2,6 +2,9 @@
 // Start the session before any output
 session_start();
 
+// Test session storage
+$_SESSION['test_data'] = 'This is a test';
+
 // For debugging - display the current session data
 echo '<pre>SESSION DATA: ';
 var_dump($_SESSION);
