@@ -1268,21 +1268,23 @@
 </head>
 <body>
 <?php
-        // Check if a cart ID is provided via GET or POST request. If not, use a default value.
-        $parkId = isset($_GET['parkId']) ? $_GET['parkId'] : 'defaultParkId123';
-        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
-        $amount = isset($_GET['amount']) ? $_GET['amount'] : '';
-        $minPayment = isset($_GET['minPayment']) ? $_GET['minPayment'] : '';
-        $name = isset($_GET['name']) ? $_GET['name'] : 'John Doe';
-        $state = isset($_GET['state']) ? $_GET['state'] : 'CA';
-        $type = isset($_GET['type']) ? $_GET['type'] : 'SHIPPING';
-        $country = isset($_GET['country']) ? $_GET['country'] : 'US';
-        $city = isset($_GET['city']) ? $_GET['city'] : 'San Francisco';
-        $address1 = isset($_GET['address1']) ? $_GET['address1'] : '123 Main St';
-        $postal = isset($_GET['postal']) ? $_GET['postal'] : '94105';
-        $email = isset($_GET['email']) ? $_GET['email'] : 'test@gmail.com';
-        $phone = isset($_GET['phone']) ? $_GET['phone'] : '123-456-7890';
-        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
+        // Get raw POST data and decode JSON input
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // Check if values exist in the request; otherwise, use defaults
+        $parkId = isset($data['parkId']) ? $data['parkId'] : 'defaultParkId123';
+        $cartId = isset($data['cartId']) ? $data['cartId'] : 'defaultCartId123';
+        $amount = isset($data['amount']) ? $data['amount'] : '';
+        $minPayment = isset($data['minPayment']) ? $data['minPayment'] : '';
+        $name = isset($data['name']) ? $data['name'] : 'John Doe';
+        $state = isset($data['state']) ? $data['state'] : 'CA';
+        $type = isset($data['type']) ? $data['type'] : 'SHIPPING';
+        $country = isset($data['country']) ? $data['country'] : 'US';
+        $city = isset($data['city']) ? $data['city'] : 'San Francisco';
+        $address1 = isset($data['address1']) ? $data['address1'] : '123 Main St';
+        $postal = isset($data['postal']) ? $data['postal'] : '94105';
+        $email = isset($data['email']) ? $data['email'] : 'test@gmail.com';
+        $phone = isset($data['phone']) ? $data['phone'] : '123-456-7890';
 
         // // Output the values for debugging
         // echo "<h3>Received Values</h3>";
