@@ -1,64 +1,48 @@
 <?php
-// Start the session before any output
+// Create a simple debug script to check session functionality
+
+// Start the session
 session_start();
 
-// Add additional debugging info
-$requestMethod = $_SERVER['REQUEST_METHOD'];
-echo '<pre style="position: fixed; top: 0; right: 0; background: rgba(255,255,255,0.9); padding: 10px; border: 1px solid #ddd; z-index: 9999; max-width: 400px; max-height: 300px; overflow: auto;">';
-echo "REQUEST METHOD: $requestMethod\n";
+// Set test values
+$_SESSION['test_time'] = date('Y-m-d H:i:s');
+$_SESSION['test_value'] = 'Hello from session debug script';
 
-if ($requestMethod === 'POST') {
-    echo "POST DATA RECEIVED:\n";
-    var_dump($_POST);
+// Output session information
+echo "<h1>Session Debug Information</h1>";
+echo "<pre>";
+echo "Session ID: " . session_id() . "\n\n";
+echo "Session name: " . session_name() . "\n\n";
+echo "Session status: " . session_status() . "\n\n";
+echo "Session save path: " . session_save_path() . "\n\n";
+echo "Current session data: \n";
+print_r($_SESSION);
+echo "</pre>";
+
+// Check if session directory is writable
+$save_path = session_save_path();
+echo "<h2>Session Directory Permissions</h2>";
+if (empty($save_path)) {
+    echo "<p>Session save path is not set</p>";
+} else {
+    echo "<p>Session save path: $save_path</p>";
+    echo "<p>Is writable: " . (is_writable($save_path) ? "Yes" : "No") . "</p>";
 }
 
-echo "CURRENT SESSION DATA:\n";
-var_dump($_SESSION);
-echo '</pre>';
+// Check if cookies are being set
+echo "<h2>Cookie Information</h2>";
+echo "<p>Session cookie parameters:</p><pre>";
+print_r(session_get_cookie_params());
+echo "</pre>";
+echo "<p>Cookies sent in this request:</p><pre>";
+print_r($_COOKIE);
+echo "</pre>";
 
-// Rest of your existing code
-$cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
-
-// Check if data was submitted via POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Store all POST data in the session under the cart ID key
-    $_SESSION['cart_data'][$cartId] = [
-        'parkId' => $_POST['parkId'] ?? 'defaultParkId123',
-        'amount' => $_POST['amount'] ?? '',
-        'minPayment' => $_POST['minPayment'] ?? '',
-        'name' => $_POST['name'] ?? 'John Doe',
-        'state' => $_POST['state'] ?? 'CA',
-        'type' => $_POST['type'] ?? 'SHIPPING',
-        'country' => $_POST['country'] ?? 'US',
-        'city' => $_POST['city'] ?? 'San Francisco',
-        'address1' => $_POST['address1'] ?? '123 Main St',
-        'postal' => $_POST['postal'] ?? '94105',
-        'email' => $_POST['email'] ?? 'test@gmail.com',
-        'phone' => $_POST['phone'] ?? '123-456-7890'
-    ];
-    
-    // Redirect to the same page with only the cart ID in the URL
-    header("Location: booking-checkout.php?cartId=$cartId");
-    exit();
-}
-
-// Try to load data from session if available
-$data = isset($_SESSION['cart_data'][$cartId]) ? $_SESSION['cart_data'][$cartId] : [];
-
-// Set default values or use session data if available
-$parkId = $data['parkId'] ?? 'defaultParkId123';
-$amount = $data['amount'] ?? '';
-$minPayment = $data['minPayment'] ?? '';
-$name = $data['name'] ?? 'John Doe';
-$state = $data['state'] ?? 'CA';
-$type = $data['type'] ?? 'SHIPPING';
-$country = $data['country'] ?? 'US';
-$city = $data['city'] ?? 'San Francisco';
-$address1 = $data['address1'] ?? '123 Main St';
-$postal = $data['postal'] ?? '94105';
-$email = $data['email'] ?? 'test@gmail.com';
-$phone = $data['phone'] ?? '123-456-7890';
-$fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
+// Test setting and retrieving a session value
+echo "<h2>Session Value Test</h2>";
+$_SESSION['test_counter'] = isset($_SESSION['test_counter']) ? $_SESSION['test_counter'] + 1 : 1;
+echo "<p>Test counter value: " . $_SESSION['test_counter'] . "</p>";
+echo "<p>Reload the page to see if the counter increases</p>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -2850,5 +2834,32 @@ $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " .
             }
         };
     </script>
+    <div style="margin-top: 50px; padding: 20px; border: 1px solid #ccc;">
+    <h2>Test Session Storage</h2>
+    <form action="booking-checkout.php" method="post">
+        <input type="hidden" name="cartId" value="test-cart-123">
+        <div style="margin-bottom: 10px;">
+            <label>Park ID: <input type="text" name="parkId" value="test-park-456"></label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Amount: <input type="text" name="amount" value="100.00"></label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Min Payment: <input type="text" name="minPayment" value="50.00"></label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Name: <input type="text" name="name" value="Test User"></label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Email: <input type="email" name="email" value="test@example.com"></label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Phone: <input type="text" name="phone" value="123-456-7890"></label>
+        </div>
+        <div>
+            <button type="submit">Submit Test Data</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
