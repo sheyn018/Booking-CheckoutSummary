@@ -2,15 +2,21 @@
 // Start the session before any output
 session_start();
 
-// Test session storage
-$_SESSION['test_data'] = 'This is a test';
+// Add additional debugging info
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+echo '<pre style="position: fixed; top: 0; right: 0; background: rgba(255,255,255,0.9); padding: 10px; border: 1px solid #ddd; z-index: 9999; max-width: 400px; max-height: 300px; overflow: auto;">';
+echo "REQUEST METHOD: $requestMethod\n";
 
-// For debugging - display the current session data
-echo '<pre>SESSION DATA: ';
+if ($requestMethod === 'POST') {
+    echo "POST DATA RECEIVED:\n";
+    var_dump($_POST);
+}
+
+echo "CURRENT SESSION DATA:\n";
 var_dump($_SESSION);
 echo '</pre>';
 
-// Get the cart ID from the URL - this is the only parameter we want in the URL
+// Rest of your existing code
 $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
 
 // Check if data was submitted via POST
