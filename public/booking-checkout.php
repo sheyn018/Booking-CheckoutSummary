@@ -1267,47 +1267,54 @@
     </style>
 </head>
 <body>
-<?php
-       // Start the session
-       session_start();
-
-       // Get cart ID from either POST or URL
-       $cartId = isset($_GET['cart']) ? $_GET['cart'] : (isset($_POST['cartId']) ? $_POST['cartId'] : 'defaultCartId123');
-
-       // If this is a POST request, store the data
-       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           // Store all POST data in session
-           $parkId = isset($_POST['parkId']) ? $_POST['parkId'] : '';
-           $amount = isset($_POST['amount']) ? $_POST['amount'] : '';
-           $minPayment = isset($_POST['minPayment']) ? $_POST['minPayment'] : '';
-           $name = isset($_POST['name']) ? $_POST['name'] : '';
-           $state = isset($_POST['state']) ? $_POST['state'] : '';
-           $type = isset($_POST['type']) ? $_POST['type'] : 'SHIPPING';
-           $country = isset($_POST['country']) ? $_POST['country'] : '';
-           $city = isset($_POST['city']) ? $_POST['city'] : '';
-           $address1 = isset($_POST['address1']) ? $_POST['address1'] : '';
-           $postal = isset($_POST['postal']) ? $_POST['postal'] : '';
-           $email = isset($_POST['email']) ? $_POST['email'] : '';
-           $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
-           
-           $_SESSION[$cartId] = array(
-               'parkId' => $parkId,
-               'amount' => $amount,
-               'minPayment' => $minPayment,
-               'customerInfo' => array(
-                   'name' => $name,
-                   'email' => $email,
-                   'phone' => $phone,
-                   'state' => $state,
-                   'type' => $type,
-                   'country' => $country,
-                   'city' => $city,
-                   'address1' => $address1,
-                   'postal' => $postal
-               ),
-               'timestamp' => time()
-           );
+    <?php
+        // Get the cart ID from the URL - this is the only parameter we want in the URL
+        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
+        
+        // Check if data was submitted via POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Store the received data in session for future use
+            session_start();
+            
+            // Store all POST data in the session under the cart ID key
+            $_SESSION['cart_data'][$cartId] = [
+                'parkId' => $_POST['parkId'] ?? 'defaultParkId123',
+                'amount' => $_POST['amount'] ?? '',
+                'minPayment' => $_POST['minPayment'] ?? '',
+                'name' => $_POST['name'] ?? 'John Doe',
+                'state' => $_POST['state'] ?? 'CA',
+                'type' => $_POST['type'] ?? 'SHIPPING',
+                'country' => $_POST['country'] ?? 'US',
+                'city' => $_POST['city'] ?? 'San Francisco',
+                'address1' => $_POST['address1'] ?? '123 Main St',
+                'postal' => $_POST['postal'] ?? '94105',
+                'email' => $_POST['email'] ?? 'test@gmail.com',
+                'phone' => $_POST['phone'] ?? '123-456-7890'
+            ];
+            
+            // Redirect to the same page with only the cart ID in the URL
+            header("Location: booking-checkout.php?cartId=$cartId");
+            exit();
         }
+        
+        // Try to load data from session if available
+        session_start();
+        $data = isset($_SESSION['cart_data'][$cartId]) ? $_SESSION['cart_data'][$cartId] : [];
+        
+        // Set default values or use session data if available
+        $parkId = $data['parkId'] ?? 'defaultParkId123';
+        $amount = $data['amount'] ?? '';
+        $minPayment = $data['minPayment'] ?? '';
+        $name = $data['name'] ?? 'John Doe';
+        $state = $data['state'] ?? 'CA';
+        $type = $data['type'] ?? 'SHIPPING';
+        $country = $data['country'] ?? 'US';
+        $city = $data['city'] ?? 'San Francisco';
+        $address1 = $data['address1'] ?? '123 Main St';
+        $postal = $data['postal'] ?? '94105';
+        $email = $data['email'] ?? 'test@gmail.com';
+        $phone = $data['phone'] ?? '123-456-7890';
+        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
     ?>
     <div class="a">
         <div class="checkout">
