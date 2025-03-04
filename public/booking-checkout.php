@@ -1,6 +1,4 @@
 <?php
-// Create a simple debug script to check session functionality
-
 // Start the session
 session_start();
 
@@ -8,7 +6,52 @@ session_start();
 $_SESSION['test_time'] = date('Y-m-d H:i:s');
 $_SESSION['test_value'] = 'Hello from session debug script';
 
-// Output session information
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Store form data in session
+    $cartId = isset($_POST['cartId']) ? $_POST['cartId'] : 'defaultCartId123';
+    
+    $_SESSION['cart_data'][$cartId] = [
+        'parkId' => $_POST['parkId'] ?? 'defaultParkId123',
+        'amount' => $_POST['amount'] ?? '',
+        'minPayment' => $_POST['minPayment'] ?? '',
+        'name' => $_POST['name'] ?? 'John Doe',
+        'state' => $_POST['state'] ?? 'CA',
+        'type' => $_POST['type'] ?? 'SHIPPING',
+        'country' => $_POST['country'] ?? 'US',
+        'city' => $_POST['city'] ?? 'San Francisco',
+        'address1' => $_POST['address1'] ?? '123 Main St',
+        'postal' => $_POST['postal'] ?? '94105',
+        'email' => $_POST['email'] ?? 'test@gmail.com',
+        'phone' => $_POST['phone'] ?? '123-456-7890'
+    ];
+    
+    // After storing, redirect to the same page with only the cart ID
+    header("Location: booking-checkout.php?cartId=$cartId");
+    exit();
+}
+
+// Get the cart ID from the URL
+$cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
+
+// Try to load data from session if available
+$data = isset($_SESSION['cart_data'][$cartId]) ? $_SESSION['cart_data'][$cartId] : [];
+
+// Set default values or use session data if available
+$parkId = $data['parkId'] ?? 'defaultParkId123';
+$amount = $data['amount'] ?? '';
+$minPayment = $data['minPayment'] ?? '';
+$name = $data['name'] ?? 'John Doe';
+$state = $data['state'] ?? 'CA';
+$type = $data['type'] ?? 'SHIPPING';
+$country = $data['country'] ?? 'US';
+$city = $data['city'] ?? 'San Francisco';
+$address1 = $data['address1'] ?? '123 Main St';
+$postal = $data['postal'] ?? '94105';
+$email = $data['email'] ?? 'test@gmail.com';
+$phone = $data['phone'] ?? '123-456-7890';
+
+// Continue with your existing debug output
 echo "<h1>Session Debug Information</h1>";
 echo "<pre>";
 echo "Session ID: " . session_id() . "\n\n";
@@ -18,31 +61,6 @@ echo "Session save path: " . session_save_path() . "\n\n";
 echo "Current session data: \n";
 print_r($_SESSION);
 echo "</pre>";
-
-// Check if session directory is writable
-$save_path = session_save_path();
-echo "<h2>Session Directory Permissions</h2>";
-if (empty($save_path)) {
-    echo "<p>Session save path is not set</p>";
-} else {
-    echo "<p>Session save path: $save_path</p>";
-    echo "<p>Is writable: " . (is_writable($save_path) ? "Yes" : "No") . "</p>";
-}
-
-// Check if cookies are being set
-echo "<h2>Cookie Information</h2>";
-echo "<p>Session cookie parameters:</p><pre>";
-print_r(session_get_cookie_params());
-echo "</pre>";
-echo "<p>Cookies sent in this request:</p><pre>";
-print_r($_COOKIE);
-echo "</pre>";
-
-// Test setting and retrieving a session value
-echo "<h2>Session Value Test</h2>";
-$_SESSION['test_counter'] = isset($_SESSION['test_counter']) ? $_SESSION['test_counter'] + 1 : 1;
-echo "<p>Test counter value: " . $_SESSION['test_counter'] . "</p>";
-echo "<p>Reload the page to see if the counter increases</p>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
