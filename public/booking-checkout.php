@@ -1307,6 +1307,7 @@
                ),
                'timestamp' => time()
            );
+        }
     ?>
     <div class="a">
         <div class="checkout">
