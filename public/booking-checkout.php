@@ -1267,42 +1267,35 @@
     </style>
 </head>
 <body>
-    <?php
-        session_start(); // Start or resume a session
+<?php
+        // Check if a cart ID is provided via GET or POST request. If not, use a default value.
+        $parkId = isset($_GET['parkId']) ? $_GET['parkId'] : 'defaultParkId123';
+        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
+        $amount = isset($_GET['amount']) ? $_GET['amount'] : '';
+        $minPayment = isset($_GET['minPayment']) ? $_GET['minPayment'] : '';
+        $name = isset($_GET['name']) ? $_GET['name'] : 'John Doe';
+        $state = isset($_GET['state']) ? $_GET['state'] : 'CA';
+        $type = isset($_GET['type']) ? $_GET['type'] : 'SHIPPING';
+        $country = isset($_GET['country']) ? $_GET['country'] : 'US';
+        $city = isset($_GET['city']) ? $_GET['city'] : 'San Francisco';
+        $address1 = isset($_GET['address1']) ? $_GET['address1'] : '123 Main St';
+        $postal = isset($_GET['postal']) ? $_GET['postal'] : '94105';
+        $email = isset($_GET['email']) ? $_GET['email'] : 'test@gmail.com';
+        $phone = isset($_GET['phone']) ? $_GET['phone'] : '123-456-7890';
+        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
 
-        // Check if it's a POST request and store the data in session
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = json_decode(file_get_contents("php://input"), true);
-
-            if (!empty($data['cartId'])) {
-                $_SESSION['checkoutData'][$data['cartId']] = $data; // Store data in session with cartId as key
-                echo json_encode(["status" => "success", "cartId" => $data['cartId']]);
-            } else {
-                echo json_encode(["status" => "error", "message" => "cartId is required"]);
-            }
-            exit;
-        }
-
-        // Check if a cart ID is provided in the GET request
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cartId'])) {
-            $cartId = $_GET['cartId'];
-
-            // ✅ Check if session data exists for the given cartId
-            if (isset($_SESSION['checkoutData'][$cartId])) {
-                $data = $_SESSION['checkoutData'][$cartId]; // Retrieve stored data
-            } else {
-                $data = ["error" => "Cart ID not found"];
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($data);
-            exit;
-        }
-
-        // If no cart ID is provided, return an error
-        echo json_encode(["error" => "No cartId provided"]);
+        // // Output the values for debugging
+        // echo "<h3>Received Values</h3>";
+        // echo "Park ID: " . $parkId . "<br>";
+        // echo "Cart ID: " . $cartId . "<br>";
+        // echo "Amount: $" . $amount . "<br>";
+        // echo "Name: " . $name . "<br>";
+        // echo "State: " . $state . "<br>";
+        // echo "Type: " . $type . "<br>";
+        // echo "Country: " . $country . "<br>";
+        // echo "City: " . $city . "<br>";
+        // echo "Address: " . $fullAddress . "<br>";
     ?>
-
     <div class="a">
         <div class="checkout">
             <section id="app-checkout-heading-title" class="checkout-heading">
