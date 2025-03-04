@@ -1267,37 +1267,42 @@
     </style>
 </head>
 <body>
-<?php
-        // Get raw POST data and decode JSON input
-        $data = json_decode(file_get_contents("php://input"), true);
+    <?php
+        session_start(); // Start or resume a session
 
-        // Check if values exist in the request; otherwise, use defaults
-        $parkId = isset($data['parkId']) ? $data['parkId'] : 'defaultParkId123';
-        $cartId = isset($data['cartId']) ? $data['cartId'] : 'defaultCartId123';
-        $amount = isset($data['amount']) ? $data['amount'] : '';
-        $minPayment = isset($data['minPayment']) ? $data['minPayment'] : '';
-        $name = isset($data['name']) ? $data['name'] : 'John Doe';
-        $state = isset($data['state']) ? $data['state'] : 'CA';
-        $type = isset($data['type']) ? $data['type'] : 'SHIPPING';
-        $country = isset($data['country']) ? $data['country'] : 'US';
-        $city = isset($data['city']) ? $data['city'] : 'San Francisco';
-        $address1 = isset($data['address1']) ? $data['address1'] : '123 Main St';
-        $postal = isset($data['postal']) ? $data['postal'] : '94105';
-        $email = isset($data['email']) ? $data['email'] : 'test@gmail.com';
-        $phone = isset($data['phone']) ? $data['phone'] : '123-456-7890';
+        // Check if it's a POST request and store the data in session
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
 
-        // // Output the values for debugging
-        // echo "<h3>Received Values</h3>";
-        // echo "Park ID: " . $parkId . "<br>";
-        // echo "Cart ID: " . $cartId . "<br>";
-        // echo "Amount: $" . $amount . "<br>";
-        // echo "Name: " . $name . "<br>";
-        // echo "State: " . $state . "<br>";
-        // echo "Type: " . $type . "<br>";
-        // echo "Country: " . $country . "<br>";
-        // echo "City: " . $city . "<br>";
-        // echo "Address: " . $fullAddress . "<br>";
+            if (!empty($data['cartId'])) {
+                $_SESSION['checkoutData'][$data['cartId']] = $data; // Store data in session with cartId as key
+                echo json_encode(["status" => "success", "cartId" => $data['cartId']]);
+            } else {
+                echo json_encode(["status" => "error", "message" => "cartId is required"]);
+            }
+            exit;
+        }
+
+        // Check if a cart ID is provided in the GET request
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cartId'])) {
+            $cartId = $_GET['cartId'];
+
+            // ✅ Check if session data exists for the given cartId
+            if (isset($_SESSION['checkoutData'][$cartId])) {
+                $data = $_SESSION['checkoutData'][$cartId]; // Retrieve stored data
+            } else {
+                $data = ["error" => "Cart ID not found"];
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
+            exit;
+        }
+
+        // If no cart ID is provided, return an error
+        echo json_encode(["error" => "No cartId provided"]);
     ?>
+
     <div class="a">
         <div class="checkout">
             <section id="app-checkout-heading-title" class="checkout-heading">
