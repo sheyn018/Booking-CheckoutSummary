@@ -1268,33 +1268,45 @@
 </head>
 <body>
 <?php
-        // Check if a cart ID is provided via GET or POST request. If not, use a default value.
-        $parkId = isset($_GET['parkId']) ? $_GET['parkId'] : 'defaultParkId123';
-        $cartId = isset($_GET['cartId']) ? $_GET['cartId'] : 'defaultCartId123';
-        $amount = isset($_GET['amount']) ? $_GET['amount'] : '';
-        $minPayment = isset($_GET['minPayment']) ? $_GET['minPayment'] : '';
-        $name = isset($_GET['name']) ? $_GET['name'] : 'John Doe';
-        $state = isset($_GET['state']) ? $_GET['state'] : 'CA';
-        $type = isset($_GET['type']) ? $_GET['type'] : 'SHIPPING';
-        $country = isset($_GET['country']) ? $_GET['country'] : 'US';
-        $city = isset($_GET['city']) ? $_GET['city'] : 'San Francisco';
-        $address1 = isset($_GET['address1']) ? $_GET['address1'] : '123 Main St';
-        $postal = isset($_GET['postal']) ? $_GET['postal'] : '94105';
-        $email = isset($_GET['email']) ? $_GET['email'] : 'test@gmail.com';
-        $phone = isset($_GET['phone']) ? $_GET['phone'] : '123-456-7890';
-        $fullAddress = $address1 . ", " . $city . ", " . $state . " " . $postal . ", " . $country;
+       // Start the session
+       session_start();
 
-        // // Output the values for debugging
-        // echo "<h3>Received Values</h3>";
-        // echo "Park ID: " . $parkId . "<br>";
-        // echo "Cart ID: " . $cartId . "<br>";
-        // echo "Amount: $" . $amount . "<br>";
-        // echo "Name: " . $name . "<br>";
-        // echo "State: " . $state . "<br>";
-        // echo "Type: " . $type . "<br>";
-        // echo "Country: " . $country . "<br>";
-        // echo "City: " . $city . "<br>";
-        // echo "Address: " . $fullAddress . "<br>";
+       // Get cart ID from either POST or URL
+       $cartId = isset($_GET['cart']) ? $_GET['cart'] : (isset($_POST['cartId']) ? $_POST['cartId'] : 'defaultCartId123');
+
+       // If this is a POST request, store the data
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           // Store all POST data in session
+           $parkId = isset($_POST['parkId']) ? $_POST['parkId'] : '';
+           $amount = isset($_POST['amount']) ? $_POST['amount'] : '';
+           $minPayment = isset($_POST['minPayment']) ? $_POST['minPayment'] : '';
+           $name = isset($_POST['name']) ? $_POST['name'] : '';
+           $state = isset($_POST['state']) ? $_POST['state'] : '';
+           $type = isset($_POST['type']) ? $_POST['type'] : 'SHIPPING';
+           $country = isset($_POST['country']) ? $_POST['country'] : '';
+           $city = isset($_POST['city']) ? $_POST['city'] : '';
+           $address1 = isset($_POST['address1']) ? $_POST['address1'] : '';
+           $postal = isset($_POST['postal']) ? $_POST['postal'] : '';
+           $email = isset($_POST['email']) ? $_POST['email'] : '';
+           $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
+           
+           $_SESSION[$cartId] = array(
+               'parkId' => $parkId,
+               'amount' => $amount,
+               'minPayment' => $minPayment,
+               'customerInfo' => array(
+                   'name' => $name,
+                   'email' => $email,
+                   'phone' => $phone,
+                   'state' => $state,
+                   'type' => $type,
+                   'country' => $country,
+                   'city' => $city,
+                   'address1' => $address1,
+                   'postal' => $postal
+               ),
+               'timestamp' => time()
+           );
     ?>
     <div class="a">
         <div class="checkout">
