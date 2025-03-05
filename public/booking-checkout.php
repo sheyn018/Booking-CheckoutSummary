@@ -1619,73 +1619,72 @@
                                 <input type="text" name="guest-city" required id="guest-city-input" aria-describedby="guest-city-error" class="checkout-form-field-input ng-untouched ng-pristine ng-valid" value="<?php echo htmlspecialchars($city); ?>">
                                 </div>
                                 <div id="guest-state" class="checkout-form-field">
-                                <label for="guest-state-select" class="checkout-form-field-label"> State* </label>
-                                
-                                <select name="guest-state" id="guest-state-select" aria-describedby="guest-state-error" class="checkout-form-field-input-dropdown ng-untouched ng-pristine ng-valid">
-                                    <option> Alabama </option>
-                                    <option> Alaska </option>
-                                    <option> American Samoa </option>
-                                    <option> Arizona </option>
-                                    <option> Arkansas </option>
-                                    <option> Armed Forces (AA) </option>
-                                    <option> Armed Forces (AE) </option>
-                                    <option> Armed Forces (AP) </option>
-                                    <option> California </option>
-                                    <option> Colorado </option>
-                                    <option> Connecticut </option>
-                                    <option> Delaware </option>
-                                    <option> District of Columbia </option>
-                                    <option> Federated States of Micronesia </option>
-                                    <option> Florida </option>
-                                    <option> Georgia </option>
-                                    <option> Guam </option>
-                                    <option> Hawaii </option>
-                                    <option> Idaho </option>
-                                    <option> Illinois </option>
-                                    <option> Indiana </option>
-                                    <option> Iowa </option>
-                                    <option> Kansas </option>
-                                    <option> Kentucky </option>
-                                    <option> Louisiana </option>
-                                    <option> Maine </option>
-                                    <option> Marshall Islands </option>
-                                    <option> Maryland </option>
-                                    <option> Massachusetts </option>
-                                    <option> Michigan </option>
-                                    <option> Minnesota </option>
-                                    <option> Mississippi </option>
-                                    <option> Missouri </option>
-                                    <option> Montana </option>
-                                    <option> Nebraska </option>
-                                    <option> Nevada </option>
-                                    <option> New Hampshire </option>
-                                    <option> New Jersey </option>
-                                    <option> New Mexico </option>
-                                    <option> New York </option>
-                                    <option> North Carolina </option>
-                                    <option> North Dakota </option>
-                                    <option> Northern Mariana Islands </option>
-                                    <option> Ohio </option>
-                                    <option> Oklahoma </option>
-                                    <option> Oregon </option>
-                                    <option> Palau </option>
-                                    <option> Pennsylvania </option>
-                                    <option> Puerto Rico </option>
-                                    <option> Rhode Island </option>
-                                    <option> South Carolina </option>
-                                    <option> South Dakota </option>
-                                    <option> Tennessee </option>
-                                    <option> Texas </option>
-                                    <option> Utah </option>
-                                    <option> Vermont </option>
-                                    <option> Virgin Islands </option>
-                                    <option> Virginia </option>
-                                    <option> Washington </option>
-                                    <option> West Virginia </option>
-                                    <option> Wisconsin </option>
-                                    <option> Wyoming </option><!---->
-                                </select>
-
+                                    <label for="guest-state-select" class="checkout-form-field-label"> State* </label>
+                                    
+                                    <select name="guest-state" id="guest-state-select" aria-describedby="guest-state-error" class="checkout-form-field-input-dropdown ng-untouched ng-pristine ng-valid">
+                                        <option <?php echo ($state == "Alabama") ? 'selected' : ''; ?>> Alabama </option>
+                                        <option <?php echo ($state == "Alaska") ? 'selected' : ''; ?>> Alaska </option>
+                                        <option <?php echo ($state == "American Samoa") ? 'selected' : ''; ?>> American Samoa </option>
+                                        <option <?php echo ($state == "Arizona") ? 'selected' : ''; ?>> Arizona </option>
+                                        <option <?php echo ($state == "Arkansas") ? 'selected' : ''; ?>> Arkansas </option>
+                                        <option <?php echo ($state == "Armed Forces (AA)") ? 'selected' : ''; ?>> Armed Forces (AA) </option>
+                                        <option <?php echo ($state == "Armed Forces (AE)") ? 'selected' : ''; ?>> Armed Forces (AE) </option>
+                                        <option <?php echo ($state == "Armed Forces (AP)") ? 'selected' : ''; ?>> Armed Forces (AP) </option>
+                                        <option <?php echo ($state == "California") ? 'selected' : ''; ?>> California </option>
+                                        <option <?php echo ($state == "Colorado") ? 'selected' : ''; ?>> Colorado </option>
+                                        <option <?php echo ($state == "Connecticut") ? 'selected' : ''; ?>> Connecticut </option>
+                                        <option <?php echo ($state == "Delaware") ? 'selected' : ''; ?>> Delaware </option>
+                                        <option <?php echo ($state == "District of Columbia") ? 'selected' : ''; ?>> District of Columbia </option>
+                                        <option <?php echo ($state == "Federated States of Micronesia") ? 'selected' : ''; ?>> Federated States of Micronesia </option>
+                                        <option <?php echo ($state == "Florida") ? 'selected' : ''; ?>> Florida </option>
+                                        <option <?php echo ($state == "Georgia") ? 'selected' : ''; ?>> Georgia </option>
+                                        <option <?php echo ($state == "Guam") ? 'selected' : ''; ?>> Guam </option>
+                                        <option <?php echo ($state == "Hawaii") ? 'selected' : ''; ?>> Hawaii </option>
+                                        <option <?php echo ($state == "Idaho") ? 'selected' : ''; ?>> Idaho </option>
+                                        <option <?php echo ($state == "Illinois") ? 'selected' : ''; ?>> Illinois </option>
+                                        <option <?php echo ($state == "Indiana") ? 'selected' : ''; ?>> Indiana </option>
+                                        <option <?php echo ($state == "Iowa") ? 'selected' : ''; ?>> Iowa </option>
+                                        <option <?php echo ($state == "Kansas") ? 'selected' : ''; ?>> Kansas </option>
+                                        <option <?php echo ($state == "Kentucky") ? 'selected' : ''; ?>> Kentucky </option>
+                                        <option <?php echo ($state == "Louisiana") ? 'selected' : ''; ?>> Louisiana </option>
+                                        <option <?php echo ($state == "Maine") ? 'selected' : ''; ?>> Maine </option>
+                                        <option <?php echo ($state == "Marshall Islands") ? 'selected' : ''; ?>> Marshall Islands </option>
+                                        <option <?php echo ($state == "Maryland") ? 'selected' : ''; ?>> Maryland </option>
+                                        <option <?php echo ($state == "Massachusetts") ? 'selected' : ''; ?>> Massachusetts </option>
+                                        <option <?php echo ($state == "Michigan") ? 'selected' : ''; ?>> Michigan </option>
+                                        <option <?php echo ($state == "Minnesota") ? 'selected' : ''; ?>> Minnesota </option>
+                                        <option <?php echo ($state == "Mississippi") ? 'selected' : ''; ?>> Mississippi </option>
+                                        <option <?php echo ($state == "Missouri") ? 'selected' : ''; ?>> Missouri </option>
+                                        <option <?php echo ($state == "Montana") ? 'selected' : ''; ?>> Montana </option>
+                                        <option <?php echo ($state == "Nebraska") ? 'selected' : ''; ?>> Nebraska </option>
+                                        <option <?php echo ($state == "Nevada") ? 'selected' : ''; ?>> Nevada </option>
+                                        <option <?php echo ($state == "New Hampshire") ? 'selected' : ''; ?>> New Hampshire </option>
+                                        <option <?php echo ($state == "New Jersey") ? 'selected' : ''; ?>> New Jersey </option>
+                                        <option <?php echo ($state == "New Mexico") ? 'selected' : ''; ?>> New Mexico </option>
+                                        <option <?php echo ($state == "New York") ? 'selected' : ''; ?>> New York </option>
+                                        <option <?php echo ($state == "North Carolina") ? 'selected' : ''; ?>> North Carolina </option>
+                                        <option <?php echo ($state == "North Dakota") ? 'selected' : ''; ?>> North Dakota </option>
+                                        <option <?php echo ($state == "Northern Mariana Islands") ? 'selected' : ''; ?>> Northern Mariana Islands </option>
+                                        <option <?php echo ($state == "Ohio") ? 'selected' : ''; ?>> Ohio </option>
+                                        <option <?php echo ($state == "Oklahoma") ? 'selected' : ''; ?>> Oklahoma </option>
+                                        <option <?php echo ($state == "Oregon") ? 'selected' : ''; ?>> Oregon </option>
+                                        <option <?php echo ($state == "Palau") ? 'selected' : ''; ?>> Palau </option>
+                                        <option <?php echo ($state == "Pennsylvania") ? 'selected' : ''; ?>> Pennsylvania </option>
+                                        <option <?php echo ($state == "Puerto Rico") ? 'selected' : ''; ?>> Puerto Rico </option>
+                                        <option <?php echo ($state == "Rhode Island") ? 'selected' : ''; ?>> Rhode Island </option>
+                                        <option <?php echo ($state == "South Carolina") ? 'selected' : ''; ?>> South Carolina </option>
+                                        <option <?php echo ($state == "South Dakota") ? 'selected' : ''; ?>> South Dakota </option>
+                                        <option <?php echo ($state == "Tennessee") ? 'selected' : ''; ?>> Tennessee </option>
+                                        <option <?php echo ($state == "Texas") ? 'selected' : ''; ?>> Texas </option>
+                                        <option <?php echo ($state == "Utah") ? 'selected' : ''; ?>> Utah </option>
+                                        <option <?php echo ($state == "Vermont") ? 'selected' : ''; ?>> Vermont </option>
+                                        <option <?php echo ($state == "Virgin Islands") ? 'selected' : ''; ?>> Virgin Islands </option>
+                                        <option <?php echo ($state == "Virginia") ? 'selected' : ''; ?>> Virginia </option>
+                                        <option <?php echo ($state == "Washington") ? 'selected' : ''; ?>> Washington </option>
+                                        <option <?php echo ($state == "West Virginia") ? 'selected' : ''; ?>> West Virginia </option>
+                                        <option <?php echo ($state == "Wisconsin") ? 'selected' : ''; ?>> Wisconsin </option>
+                                        <option <?php echo ($state == "Wyoming") ? 'selected' : ''; ?>> Wyoming </option>
+                                    </select>
                                 </div>
   
                                 <div id="guest-email" class="checkout-form-field mod-email">
